@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { user } from "../models/user";
+import { User } from "../models/user";
 import { api } from "./apiconfig";
 
 @Injectable()
@@ -15,7 +15,7 @@ export class UserService {
     return "hola mundo desde un service";
   }
 
-  public register(user: user): Observable<any> {
+  public register(user: User): Observable<any> {
     let json = JSON.stringify(user);
     let params = "json=" + json;
 
@@ -25,5 +25,21 @@ export class UserService {
     );
 
     return this._http.post(this.url + "register", params, { headers });
+  }
+
+  public signup(user, getToken = null): Observable<any> {
+    if (getToken != null) {
+      user.getToken = "true";
+    }
+
+    let json = JSON.stringify(user);
+    let params = "json=" + json;
+
+    let headers = new HttpHeaders().set(
+      "Content-Type",
+      "application/x-www-form-urlencoded"
+    );
+
+    return this._http.post(this.url + "login", params, { headers });
   }
 }
