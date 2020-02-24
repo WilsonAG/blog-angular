@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Router, ActivatedRoute, Params } from "@angular/router";
 import { User } from "../../models/user";
 import { UserService } from "../../services/user.service";
 
@@ -14,12 +15,21 @@ export class LoginComponent implements OnInit {
   public status: string;
   public token: string;
   public identity: any;
-  constructor(private _userService: UserService) {
+
+  constructor(
+    private _userService: UserService,
+    private _router: Router,
+    private _route: ActivatedRoute
+  ) {
     this.title_page = "Identificate!";
     this.user = new User();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // Se ejecuta siempre que cargue el componenete
+    // cierra sesion cuando llega el parametro sure a la url
+    this.logout();
+  }
 
   onSubmit(form: any) {
     this._userService.signup(this.user).subscribe(
@@ -35,6 +45,8 @@ export class LoginComponent implements OnInit {
             // Guardar datos en el localStorage
             localStorage.setItem("token", this.token);
             localStorage.setItem("identity", JSON.stringify(this.identity));
+
+            this._router.navigate(["/inicio"]);
           });
         } else {
           this.status = "error";
@@ -44,5 +56,21 @@ export class LoginComponent implements OnInit {
         this.status = "error";
       }
     );
+  }
+
+  logout() {
+    this._route.params.subscribe(params => {
+      let logout = +params["sure"];
+      if (logout == 1) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("identity");
+
+        this.identity = null;
+        this.token = null;
+
+        // Redireccion a inicio
+        this._router.navigate(["/inicio"]);
+      }
+    });
   }
 }

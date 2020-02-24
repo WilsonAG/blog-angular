@@ -30,7 +30,8 @@
         </li>
       </ul>
 
-      <ul class="navbar-nav navbar-right">
+      <!-- para usuarios no logeados -->
+      <ul class="navbar-nav navbar-right" *ngIf="!identity">
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/login']">
             Iniciar Sesion
@@ -43,7 +44,8 @@
         </li>
       </ul>
 
-      <ul class="navbar-nav navbar-right">
+      <!-- Para usuarios logeados -->
+      <ul class="navbar-nav navbar-right" *ngIf="identity && identity.name">
         <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
@@ -54,7 +56,7 @@
             aria-haspopup="true"
             aria-expanded="false"
           >
-            Nombre Usuario
+            {{ identity.name }}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="#">Crear Entrada</a>
@@ -62,7 +64,7 @@
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#">Mi perfil</a>
             <a class="dropdown-item" href="#">Ajustes</a>
-            <a class="dropdown-item" href="#">Salir</a>
+            <a class="dropdown-item" [routerLink]="['/logout/1']">Salir</a>
           </div>
         </li>
       </ul>

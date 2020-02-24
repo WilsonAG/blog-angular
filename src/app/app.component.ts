@@ -1,10 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, DoCheck } from "@angular/core";
+import { UserService } from "./services/user.service";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"],
+  providers: [UserService]
 })
-export class AppComponent {
-  title = 'blog-angular';
+export class AppComponent implements OnInit, DoCheck {
+  title = "blog-angular";
+  public identity: any;
+  public token: string;
+
+  constructor(public _userService: UserService) {
+    this.loadUser();
+  }
+
+  ngOnInit() {
+    console.log("web-app cargada correctamente");
+  }
+
+  ngDoCheck() {
+    this.loadUser();
+  }
+
+  loadUser() {
+    this.identity = this._userService.getIdentity();
+    this.token = this._userService.getToken();
+  }
 }
