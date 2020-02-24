@@ -4,12 +4,15 @@ import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
 
 import { appRoutingProviders, routing } from "./app.routing";
+import { FroalaViewModule, FroalaEditorModule } from "angular-froala-wysiwyg";
+import { AngularFileUploaderModule } from "angular-file-uploader";
 
 import { AppComponent } from "./app.component";
 import { LoginComponent } from "./components/login/login.component";
 import { RegisterComponent } from "./components/register/register.component";
 import { HomeComponent } from "./components/home/home.component";
 import { ErrorComponent } from "./components/error/error.component";
+import { UserEditComponent } from "./components/user-edit/user-edit.component";
 
 @NgModule({
   declarations: [
@@ -17,9 +20,18 @@ import { ErrorComponent } from "./components/error/error.component";
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    ErrorComponent
+    ErrorComponent,
+    UserEditComponent
   ],
-  imports: [BrowserModule, routing, FormsModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    routing,
+    FormsModule,
+    HttpClientModule,
+    FroalaEditorModule.forRoot(),
+    FroalaViewModule.forRoot(),
+    AngularFileUploaderModule
+  ],
   providers: [appRoutingProviders],
   bootstrap: [AppComponent]
 })

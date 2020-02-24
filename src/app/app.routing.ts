@@ -1,5 +1,5 @@
 // imports necesarios
-import { ModuleWithProviders } from "@angular/core";
+import { ModuleWithProviders, Component } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
 //importar componentes
@@ -7,6 +7,7 @@ import { LoginComponent } from "./components/login/login.component";
 import { RegisterComponent } from "./components/register/register.component";
 import { ErrorComponent } from "./components/error/error.component";
 import { HomeComponent } from "./components/home/home.component";
+import { UserEditComponent } from "./components/user-edit/user-edit.component";
 
 // Definir las rutas
 const appRoutes: Routes = [
@@ -15,6 +16,7 @@ const appRoutes: Routes = [
   { path: "login", component: LoginComponent },
   { path: "registro", component: RegisterComponent },
   { path: "logout/:sure", component: LoginComponent },
+  { path: "ajustes", component: UserEditComponent },
   { path: "**", component: ErrorComponent }
 ];
 

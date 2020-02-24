@@ -7,6 +7,7 @@ export class User {
   public password: string;
   public description: string;
   public image: string;
+
   constructor() {
     this.id = 1;
     this.name = "";

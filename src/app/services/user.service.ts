@@ -30,7 +30,7 @@ export class UserService {
     return this._http.post(this.url + "register", params, { headers });
   }
 
-  public signup(user, getToken = null): Observable<any> {
+  public signup(user: any, getToken = null): Observable<any> {
     if (getToken != null) {
       user.getToken = "true";
     }
@@ -44,6 +44,16 @@ export class UserService {
     );
 
     return this._http.post(this.url + "login", params, { headers });
+  }
+
+  public update(token: string, user: any): Observable<any> {
+    let json = JSON.stringify(user);
+    let params = "json=" + json;
+    let headers = new HttpHeaders()
+      .set("Authorization", token)
+      .set("Content-Type", "application/x-www-form-urlencoded");
+
+    return this._http.put(this.url + "user/update", params, { headers });
   }
 
   public getIdentity() {

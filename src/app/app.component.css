@@ -1,0 +1,10 @@
+.img-mask {
+  height: 48px;
+  width: 48px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.img-nav {
+  height: 100%;
+}
