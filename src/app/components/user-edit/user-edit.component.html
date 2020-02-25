@@ -1,7 +1,8 @@
 <div class="col-md-12 mt-3 d-flex flex-column align-items-center">
   <h2 class="display-3">{{ title_page }}</h2>
   <p>Modifica tus datos personales.</p>
-  <hr />
+  <hr class="w-100" />
+
   <!-- Mensajes -->
   <div
     class="alert alert-success alert-dismissible fade show col-md-5"
@@ -116,7 +117,7 @@
     <input
       type="submit"
       value="Guardar Cambios"
-      class="btn btn-success"
+      class="btn btn-success d-block mx-auto"
       [disabled]="userLoginForm.invalid"
     />
   </form>

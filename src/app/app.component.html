@@ -25,8 +25,10 @@
             >Inicio <span class="sr-only">(current)</span></a
           >
         </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/categorias']">Categorias</a>
+        <li class="nav-item" *ngFor="let category of categories">
+          <a class="nav-link" [routerLink]="['/categorias']">{{
+            category.name
+          }}</a>
         </li>
       </ul>
 
@@ -69,7 +71,9 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="#">Crear Entrada</a>
-            <a class="dropdown-item" href="#">Crear Categoria</a>
+            <a class="dropdown-item" [routerLink]="['crear-categoria']"
+              >Crear Categoria</a
+            >
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#">Mi perfil</a>
             <a class="dropdown-item" [routerLink]="['/ajustes']">Ajustes</a>
@@ -83,4 +87,9 @@
 
   <router-outlet></router-outlet>
   <!-- Cierro contenedor principal -->
+
+  <hr />
+  <footer class="text-center">
+    Blog con Angular
+  </footer>
 </div>
