@@ -70,7 +70,9 @@
             {{ identity.name }}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Crear Entrada</a>
+            <a class="dropdown-item" [routerLink]="['/crear-entrada']"
+              >Crear Entrada</a
+            >
             <a class="dropdown-item" [routerLink]="['crear-categoria']"
               >Crear Categoria</a
             >
