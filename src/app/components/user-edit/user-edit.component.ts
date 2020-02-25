@@ -56,7 +56,9 @@ export class UserEditComponent implements OnInit {
     hideProgressBar: false,
     hideResetBtn: true,
     hideSelectBtn: false,
-    attachPinText: "Sube tu imagen de perfil"
+    replaceTexts: {
+      attachPinBtn: "Sube tu imagen de perfil "
+    }
   };
 
   constructor(private _userService: UserService) {

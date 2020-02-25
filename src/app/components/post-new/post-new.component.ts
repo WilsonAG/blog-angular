@@ -3,18 +3,24 @@ import { Router, ActivatedRoute, Params } from "@angular/router";
 import { UserService } from "../../services/user.service";
 import { CategoryService } from "../../services/category.service";
 import { Post } from "../../models/post";
+import { api } from "../../services/apiconfig";
+import { PostService } from "../../services/post.service";
+import { error } from "protractor";
 
 @Component({
   selector: "app-post-new",
   templateUrl: "./post-new.component.html",
   styleUrls: ["./post-new.component.css"],
-  providers: [UserService, CategoryService]
+  providers: [UserService, CategoryService, PostService]
 })
 export class PostNewComponent implements OnInit {
   public title_page: string;
   public identity: any;
   public token: string;
   public post: Post;
+  public categories: Array<any>;
+  public status: string;
+  public message: string;
 
   public froalaOptions: Object = {
     iconsTemplate: "font_awesome_5",
@@ -42,12 +48,31 @@ export class PostNewComponent implements OnInit {
       "alert"
     ]
   };
+  public afuConfig = {
+    multiple: false,
+    formatsAllowed: ".jpg,.png, .jpeg, .gif",
+    maxSize: "1",
+    uploadAPI: {
+      url: api.url + "post/upload",
+      headers: {
+        Authorization: this._userService.getToken()
+      }
+    },
+    theme: "attachPin",
+    hideProgressBar: false,
+    hideResetBtn: true,
+    hideSelectBtn: false,
+    replaceTexts: {
+      attachPinBtn: "Selecciona la imagen..."
+    }
+  };
 
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
     private _userService: UserService,
-    private _categoryService: CategoryService
+    private _categoryService: CategoryService,
+    private _postService: PostService
   ) {
     this.title_page = "Crear nueva entrada.";
     this.identity = this._userService.getIdentity();
@@ -56,7 +81,47 @@ export class PostNewComponent implements OnInit {
 
   ngOnInit(): void {
     this.post = new Post(1, this.identity.sub, 1, "", "", null, null);
+    this.getCategories();
   }
 
-  onSubmit(form: any) {}
+  onSubmit(form: any) {
+    this._postService.create(this.token, this.post).subscribe(
+      response => {
+        if (response.status == "ok") {
+          this.post = response.data;
+          this.status = "ok";
+          this.message = response.message;
+
+          setTimeout(() => {
+            this._router.navigate(["inicio"]);
+          }, 5000);
+        } else {
+          this.status = "error";
+        }
+      },
+      error => {
+        console.log(<any>error);
+        this.message = error.error.message;
+        this.status = "error";
+      }
+    );
+  }
+
+  getCategories() {
+    this._categoryService.getAll().subscribe(
+      response => {
+        if (response.status == "ok") {
+          this.categories = response.data;
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  imageUpload(data: any) {
+    let image_data = JSON.parse(data.response);
+    this.post.image = image_data.image;
+  }
 }
