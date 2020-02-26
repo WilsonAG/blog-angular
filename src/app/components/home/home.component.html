@@ -32,28 +32,85 @@
 				<div
 					class="post-buttons mt-3 d-flex flex-sm-column flex-md-row justify-content-around"
 				>
-					<a
+					<button
 						[routerLink]="['/entrada', post.id]"
 						class="btn btn-success mb-sm-1"
 					>
 						Ver
-					</a>
+					</button>
 
-					<a
+					<button
 						[routerLink]="['/editar-entrada', post.id]"
 						class="btn btn-warning mb-sm-1"
 						*ngIf="identity && identity.sub == post.user_id"
 					>
 						Editar
-					</a>
+					</button>
 
-					<a
-						[routerLink]="['/inicio']"
+					<!-- Button trigger modal -->
+					<button
+						type="button"
 						class="btn btn-danger mb-sm-1"
+						data-toggle="modal"
+						[attr.data-target]="'#deleteModal' + post.id"
 						*ngIf="identity && identity.sub == post.user_id"
 					>
 						Borrar
-					</a>
+					</button>
+
+					<!-- Modal -->
+					<div
+						class="modal fade"
+						id="deleteModal{{ post.id }}"
+						tabindex="-1"
+						role="dialog"
+						aria-labelledby="deleteModalLabel"
+						aria-hidden="true"
+					>
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5
+										class="modal-title"
+										id="deleteModalLabel"
+									>
+										¿Estas seguro que deseas eliminar esta
+										entrada?
+									</h5>
+									<button
+										type="button"
+										class="close"
+										data-dismiss="modal"
+										aria-label="Close"
+									>
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									Estas a punto de eliminar a
+									{{ post.title }}. No se podra recuperar la
+									entrada.
+								</div>
+								<div class="modal-footer">
+									<button
+										(click)="deletePost(post.id)"
+										class="btn btn-danger mb-sm-1"
+										data-dismiss="modal"
+									>
+										Borrar
+									</button>
+
+									<button
+										type="button"
+										class="btn btn-secondary"
+										data-dismiss="modal"
+									>
+										cerrar
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</article>
