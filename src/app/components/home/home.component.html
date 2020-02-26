@@ -1,2 +1,53 @@
-<h1>{{ title_page }}</h1>
-<p>home works!</p>
+<div class="div" *ngIf="!posts">
+  Loading...
+</div>
+
+<div class="container-fliud" *ngIf="posts">
+  <h2>{{ title_page }}</h2>
+  <hr />
+  <div class="card-columns mt-3">
+    <article class="card w-100" *ngFor="let post of posts">
+      <div class="card-header">
+        <a [routerLink]="['/inicio']"
+          ><h3>{{ post.title }}</h3>
+        </a>
+      </div>
+
+      <div class="card-body">
+        <!-- imagen del post -->
+        <div class="post-image w-100" *ngIf="post.image">
+          <img
+            src="{{ url + 'post/image/' + post.image }}"
+            alt="{{ post.image }}"
+            class="w-100"
+          />
+        </div>
+        <div class="post-image w-100" *ngIf="!post.image">
+          <img src="https://via.placeholder.com/400x250" class="w-100" />
+        </div>
+        <!-- botones de accion -->
+        <div
+          class="post-buttons mt-3 d-flex flex-sm-column flex-md-row justify-content-around"
+        >
+          <a [routerLink]="['/inicio']" class="btn btn-success mb-sm-1">Ver</a>
+
+          <a
+            [routerLink]="['/inicio']"
+            class="btn btn-warning mb-sm-1"
+            *ngIf="identity && identity.sub == post.user_id"
+          >
+            Editar
+          </a>
+
+          <a
+            [routerLink]="['/inicio']"
+            class="btn btn-danger mb-sm-1"
+            *ngIf="identity && identity.sub == post.user_id"
+          >
+            Borrar
+          </a>
+        </div>
+      </div>
+    </article>
+  </div>
+</div>
