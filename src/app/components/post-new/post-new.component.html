@@ -1,110 +1,124 @@
 <div class="col-md-12 mt-3 d-flex flex-column align-items-center">
-  <h2 class="display-3 class text-center">{{ title_page }}</h2>
-  <p class="text-justify">Añade un nuevo articulo al blog.</p>
+	<h2 class="display-3 class text-center">{{ title_page }}</h2>
+	<p class="text-justify" *ngIf="isEdit">Modifica el post {{ post.title }}</p>
+	<p class="text-justify" *ngIf="!isEdit">Añade un nuevo articulo al blog.</p>
 
-  <!-- mensajes de alerta -->
-  <div
-    class="alert alert-success alert-dismissible fade show col-md-5"
-    role="alert"
-    *ngIf="status == 'ok'"
-  >
-    <!-- {{ messages }} -->
-    <div *ngIf="message">
-      <p>{{ message }}</p>
-      <p>Sera redireccionado al inicio en breve.</p>
-    </div>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
+	<!-- mensajes de alerta -->
+	<div
+		class="alert alert-success alert-dismissible fade show col-md-5"
+		role="alert"
+		*ngIf="status == 'ok'"
+	>
+		<!-- {{ messages }} -->
+		<div *ngIf="message">
+			<p>{{ message }}</p>
+			<p>Sera redireccionado al inicio en breve.</p>
+		</div>
+		<button
+			type="button"
+			class="close"
+			data-dismiss="alert"
+			aria-label="Close"
+		>
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
 
-  <div
-    class="alert alert-danger alert-dismissible fade show col-md-5"
-    role="alert"
-    *ngIf="status == 'error'"
-  >
-    <!-- {{ messages }} -->
-    Error al crear la entrada.
-    <p *ngIf="message">{{ message }}</p>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
+	<div
+		class="alert alert-danger alert-dismissible fade show col-md-5"
+		role="alert"
+		*ngIf="status == 'error'"
+	>
+		<!-- {{ messages }} -->
+		Error al crear la entrada.
+		<p *ngIf="message">{{ message }}</p>
+		<button
+			type="button"
+			class="close"
+			data-dismiss="alert"
+			aria-label="Close"
+		>
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
 
-  <!-- formulario de crear entrada -->
-  <form
-    class="col-md-5 ml-0 pl-0 d-flex flex-column "
-    #postNew="ngForm"
-    (ngSubmit)="onSubmit(postNew)"
-  >
-    <div class="form-group">
-      <label for="title">Titulo:</label>
-      <input
-        type="text"
-        name="title"
-        id="title"
-        #title="ngModel"
-        [(ngModel)]="post.title"
-        class="form-control"
-        required
-      />
-      <small
-        *ngIf="title.invalid && title.touched"
-        class="invalid-feedback d-block"
-      >
-        El titulo no es valido.
-      </small>
-    </div>
+	<!-- formulario de crear entrada -->
+	<form
+		class="col-md-5 ml-0 pl-0 d-flex flex-column "
+		#postNew="ngForm"
+		(ngSubmit)="onSubmit(postNew)"
+	>
+		<div class="form-group">
+			<label for="title">Titulo:</label>
+			<input
+				type="text"
+				name="title"
+				id="title"
+				#title="ngModel"
+				[(ngModel)]="post.title"
+				class="form-control"
+				required
+			/>
+			<small
+				*ngIf="title.invalid && title.touched"
+				class="invalid-feedback d-block"
+			>
+				El titulo no es valido.
+			</small>
+		</div>
 
-    <div class="form-group">
-      <label for="content">Contenido: </label>
-      <textarea
-        [froalaEditor]
-        name="content"
-        id="content"
-        #content="ngModel"
-        class="form-control"
-        [(ngModel)]="post.content"
-        required
-      ></textarea>
+		<div class="form-group">
+			<label for="content">Contenido: </label>
+			<textarea
+				[froalaEditor]
+				name="content"
+				id="content"
+				#content="ngModel"
+				class="form-control"
+				[(ngModel)]="post.content"
+				required
+			></textarea>
 
-      <small
-        *ngIf="!content.valid && content.touched"
-        class="invalid-feedback d-block"
-      >
-        El contenido no es valido.
-      </small>
-    </div>
+			<small
+				*ngIf="!content.valid && content.touched"
+				class="invalid-feedback d-block"
+			>
+				El contenido no es valido.
+			</small>
+		</div>
 
-    <div class="form-group">
-      <label for="category_id">Categoria: </label>
-      <select
-        name="category_id"
-        id="category_id"
-        #category="ngModel"
-        [(ngModel)]="post.category_id"
-        class="form-control"
-      >
-        <option *ngFor="let category of categories" value="{{ category.id }}">
-          {{ category.name }}</option
-        >
-      </select>
-    </div>
+		<div class="form-group">
+			<label for="category_id">Categoria: </label>
+			<select
+				name="category_id"
+				id="category_id"
+				#category="ngModel"
+				[(ngModel)]="post.category_id"
+				class="form-control"
+			>
+				<option
+					*ngFor="let category of categories"
+					value="{{ category.id }}"
+				>
+					{{ category.name }}</option
+				>
+			</select>
+		</div>
 
-    <div class="form-group">
-      <label for="image">Imagen: </label>
-      <angular-file-uploader
-        [config]="afuConfig"
-        [resetUpload]="true"
-        (ApiResponse)="imageUpload($event)"
-      ></angular-file-uploader>
-    </div>
+		<div class="form-group">
+			<label for="image">Imagen: </label>
+			<angular-file-uploader
+				[config]="afuConfig"
+				[resetUpload]="true"
+				(ApiResponse)="imageUpload($event)"
+			></angular-file-uploader>
+		</div>
 
-    <input
-      type="submit"
-      value="Guardar"
-      class="btn btn-success"
-      [disabled]="postNew.invalid"
-    />
-  </form>
+		<input
+			type="submit"
+			value="Guardar"
+			class="btn btn-success"
+			[disabled]="postNew.invalid"
+		/>
+	</form>
 </div>

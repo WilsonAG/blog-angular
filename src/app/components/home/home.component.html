@@ -33,14 +33,14 @@
 					class="post-buttons mt-3 d-flex flex-sm-column flex-md-row justify-content-around"
 				>
 					<a
-						[routerLink]="['/entrada/', post.id]"
+						[routerLink]="['/entrada', post.id]"
 						class="btn btn-success mb-sm-1"
 					>
 						Ver
 					</a>
 
 					<a
-						[routerLink]="['/inicio']"
+						[routerLink]="['/editar-entrada', post.id]"
 						class="btn btn-warning mb-sm-1"
 						*ngIf="identity && identity.sub == post.user_id"
 					>

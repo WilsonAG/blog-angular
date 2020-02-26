@@ -1,97 +1,108 @@
 <!-- Contenedor principal -->
 <div class="container">
-  <!-- barra de navegacion -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" [routerLink]="['/inicio']">
-      <i class="fab fa-blogger-b"></i>
-      Ng-Blog
-    </a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
+	<!-- barra de navegacion -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" [routerLink]="['/inicio']">
+			<i class="fab fa-blogger-b"></i>
+			Ng-Blog
+		</a>
+		<button
+			class="navbar-toggler"
+			type="button"
+			data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent"
+			aria-expanded="false"
+			aria-label="Toggle navigation"
+		>
+			<span class="navbar-toggler-icon"></span>
+		</button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" [routerLink]="['/inicio']"
-            >Inicio <span class="sr-only">(current)</span></a
-          >
-        </li>
-        <li class="nav-item" *ngFor="let category of categories">
-          <a class="nav-link" [routerLink]="['/categorias']">{{
-            category.name
-          }}</a>
-        </li>
-      </ul>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" [routerLink]="['/inicio']"
+						>Inicio <span class="sr-only">(current)</span></a
+					>
+				</li>
+				<li class="nav-item" *ngFor="let category of categories">
+					<a class="nav-link" [routerLink]="['/categorias']">{{
+						category.name
+					}}</a>
+				</li>
+			</ul>
 
-      <!-- para usuarios no logeados -->
-      <ul class="navbar-nav navbar-right" *ngIf="!identity">
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/login']">
-            Iniciar Sesion
-          </a>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link" [routerLink]="['/registro']">
-            Registrate
-          </a>
-        </li>
-      </ul>
+			<!-- para usuarios no logeados -->
+			<ul class="navbar-nav navbar-right" *ngIf="!identity">
+				<li class="nav-item">
+					<a class="nav-link" [routerLink]="['/login']">
+						Iniciar Sesion
+					</a>
+				</li>
+				<li class="nav-item ">
+					<a class="nav-link" [routerLink]="['/registro']">
+						Registrate
+					</a>
+				</li>
+			</ul>
 
-      <!-- Para usuarios logeados -->
-      <ul class="navbar-nav navbar-right" *ngIf="identity && identity.name">
-        <li class="nav-item" *ngIf="identity && identity.name">
-          <div class="img-mask ">
-            <img
-              class="img-nav "
-              src="{{ url + 'user/avatar/' + identity.image }}"
-              alt="identity.image"
-            />
-          </div>
-        </li>
-        <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            href="#"
-            id="navbarDropdown"
-            role="button"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            {{ identity.name }}
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" [routerLink]="['/crear-entrada']"
-              >Crear Entrada</a
-            >
-            <a class="dropdown-item" [routerLink]="['crear-categoria']"
-              >Crear Categoria</a
-            >
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Mi perfil</a>
-            <a class="dropdown-item" [routerLink]="['/ajustes']">Ajustes</a>
-            <a class="dropdown-item" [routerLink]="['/logout/1']">Salir</a>
-          </div>
-        </li>
-      </ul>
-    </div>
-    <!-- cierro barra de navegacion -->
-  </nav>
+			<!-- Para usuarios logeados -->
+			<ul
+				class="navbar-nav navbar-right"
+				*ngIf="identity && identity.name"
+			>
+				<li class="nav-item" *ngIf="identity && identity.name">
+					<div class="img-mask ">
+						<img
+							class="img-nav "
+							src="{{ url + 'user/avatar/' + identity.image }}"
+							alt="identity.image"
+						/>
+					</div>
+				</li>
+				<li class="nav-item dropdown">
+					<a
+						class="nav-link dropdown-toggle"
+						href="#"
+						id="navbarDropdown"
+						role="button"
+						data-toggle="dropdown"
+						aria-haspopup="true"
+						aria-expanded="false"
+					>
+						{{ identity.name }}
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a
+							class="dropdown-item"
+							[routerLink]="['/crear-entrada']"
+							>Crear Entrada</a
+						>
+						<a
+							class="dropdown-item"
+							[routerLink]="['crear-categoria']"
+							>Crear Categoria</a
+						>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="#">Mi perfil</a>
+						<a class="dropdown-item" [routerLink]="['/ajustes']"
+							>Ajustes</a
+						>
+						<a class="dropdown-item" [routerLink]="['/logout/1']"
+							>Salir</a
+						>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<!-- cierro barra de navegacion -->
+	</nav>
 
-  <router-outlet></router-outlet>
-  <!-- Cierro contenedor principal -->
+	<router-outlet></router-outlet>
+	<!-- Cierro contenedor principal -->
 
-  <hr />
-  <footer class="text-center">
-    Blog con Angular
-  </footer>
+	<hr />
+	<footer class="text-center text-muted my-3">
+		Blog con Angular
+	</footer>
 </div>
