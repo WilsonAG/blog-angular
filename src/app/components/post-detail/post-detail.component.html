@@ -1,0 +1,19 @@
+<div class="col-md-12" *ngIf="!post">
+	Loading...
+</div>
+<div class="col-md-12" *ngIf="post">
+	<h2 class="display-4 text-uppercase">{{ post.title }}</h2>
+	<small>
+		<span class="font-weight-bold">By: </span>{{ post.category.name }} -
+		{{ post.user.name }}
+		{{ post.user.lastname }}
+	</small>
+	<hr />
+	<div class="col-md-5 w-100 mx-auto">
+		<img
+			src="{{ url + 'post/image/' + post.image }}"
+			alt="{{ post.title }}"
+		/>
+	</div>
+	<p [innerHTML]="post.content" class="text-justify"></p>
+</div>
