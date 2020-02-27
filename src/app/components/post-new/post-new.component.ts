@@ -5,7 +5,6 @@ import { CategoryService } from '../../services/category.service';
 import { Post } from '../../models/post';
 import { api } from '../../services/apiconfig';
 import { PostService } from '../../services/post.service';
-import { error } from 'protractor';
 
 @Component({
 	selector: 'app-post-new',
