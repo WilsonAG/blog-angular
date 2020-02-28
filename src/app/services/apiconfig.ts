@@ -1,5 +1,5 @@
 export var api = {
-	url: 'http://api-rest-laravel.com/api/v1/',
+	url: 'https://api-laravel-blog.herokuapp.com/api/v1/',
 	htmlEntities: function htmlEntities(str) {
 		return String(str)
 			.replace('&ntilde;', 'ñ')
