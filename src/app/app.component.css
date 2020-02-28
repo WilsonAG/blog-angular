@@ -8,3 +8,10 @@
 .img-nav {
 	height: 100%;
 }
+
+.img-edit {
+	width: 240px;
+	display: block;
+	margin-bottom: 1em;
+	margin-top: 1em;
+}

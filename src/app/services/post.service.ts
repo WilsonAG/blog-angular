@@ -13,6 +13,8 @@ export class PostService {
 	}
 
 	create(token: string, post: Post): Observable<any> {
+		post.content = api.htmlEntities(post.content);
+
 		let json = JSON.stringify(post);
 		let params = 'json=' + json;
 		let headers = new HttpHeaders()
@@ -39,6 +41,7 @@ export class PostService {
 	}
 
 	update(token: string, post: Post, id: number): Observable<any> {
+		post.content = api.htmlEntities(post.content);
 		let json = JSON.stringify(post);
 		let params = 'json=' + json;
 

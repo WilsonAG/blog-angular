@@ -21,38 +21,16 @@ export class PostEditComponent implements OnInit {
 	public status: string;
 	public message: string;
 	public isEdit: boolean;
+	public url: string;
 
 	public froalaOptions: Object = {
 		iconsTemplate: 'font_awesome_5',
 		charCounterCount: true,
-		toolbarButtons: [
-			'bold',
-			'italic',
-			'underline',
-			'paragraphFormat',
-			'alert',
-		],
-		toolbarButtonsXS: [
-			'bold',
-			'italic',
-			'underline',
-			'paragraphFormat',
-			'alert',
-		],
-		toolbarButtonsSM: [
-			'bold',
-			'italic',
-			'underline',
-			'paragraphFormat',
-			'alert',
-		],
-		toolbarButtonsMD: [
-			'bold',
-			'italic',
-			'underline',
-			'paragraphFormat',
-			'alert',
-		],
+		language: 'es',
+		toolbarButtons: ['bold', 'italic', 'underline', 'paragraphFormat'],
+		toolbarButtonsXS: ['bold', 'italic', 'underline', 'paragraphFormat'],
+		toolbarButtonsSM: ['bold', 'italic', 'underline', 'paragraphFormat'],
+		toolbarButtonsMD: ['bold', 'italic', 'underline', 'paragraphFormat'],
 	};
 	public afuConfig = {
 		multiple: false,
@@ -84,6 +62,7 @@ export class PostEditComponent implements OnInit {
 		this.identity = this._userService.getIdentity();
 		this.token = this._userService.getToken();
 		this.isEdit = true;
+		this.url = api.url;
 	}
 
 	ngOnInit(): void {
@@ -144,6 +123,10 @@ export class PostEditComponent implements OnInit {
 					if (response.status == 'ok') {
 						this.post = response.data;
 						console.log(this.post);
+
+						if (this.post.user_id != this.identity.sub) {
+							this._router.navigate(['/inicio']);
+						}
 					} else {
 						this._router.navigate(['inicio']);
 					}

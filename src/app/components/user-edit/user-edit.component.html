@@ -1,124 +1,134 @@
 <div class="col-md-12 mt-3 d-flex flex-column align-items-center">
-  <h2 class="display-3">{{ title_page }}</h2>
-  <p>Modifica tus datos personales.</p>
-  <hr class="w-100" />
+	<h2 class="display-3">{{ title_page }}</h2>
+	<p>Modifica tus datos personales.</p>
+	<hr class="w-100" />
 
-  <!-- Mensajes -->
-  <div
-    class="alert alert-success alert-dismissible fade show col-md-5"
-    role="alert"
-    *ngIf="status == 'ok'"
-  >
-    <!-- {{ messages }} -->
-    Cambios guardados correctamente
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
+	<!-- Mensajes -->
+	<div
+		class="alert alert-success alert-dismissible fade show col-md-5"
+		role="alert"
+		*ngIf="status == 'ok'"
+	>
+		<!-- {{ messages }} -->
+		Cambios guardados correctamente
+		<button
+			type="button"
+			class="close"
+			data-dismiss="alert"
+			aria-label="Close"
+		>
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
 
-  <div
-    class="alert alert-danger alert-dismissible fade show col-md-5"
-    role="alert"
-    *ngIf="status == 'error'"
-  >
-    <!-- {{ messages }} -->
-    Error al guardar cambios
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
+	<div
+		class="alert alert-danger alert-dismissible fade show col-md-5"
+		role="alert"
+		*ngIf="status == 'error'"
+	>
+		<!-- {{ messages }} -->
+		Error al guardar cambios
+		<button
+			type="button"
+			class="close"
+			data-dismiss="alert"
+			aria-label="Close"
+		>
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
 
-  <!-- Formulario de registro -->
-  <form
-    class="col-md-5 ml-0 p-0"
-    #userLoginForm="ngForm"
-    (ngSubmit)="onSubmit(userLoginForm)"
-  >
-    <div class="form-group">
-      <label for="name">Nombre: </label>
-      <input
-        type="text"
-        name="name"
-        class="form-control"
-        #name="ngModel"
-        [(ngModel)]="user.name"
-        required
-        pattern="[a-zA-Z]+"
-      />
-      <small
-        *ngIf="!name.valid && name.touched"
-        class="invalid-feedback d-block"
-        >El nombre no es valido</small
-      >
-    </div>
-    <div class="form-group">
-      <label for="lastname">Apellidos: </label>
-      <input
-        type="text"
-        name="lastname"
-        class="form-control"
-        #lastname="ngModel"
-        [(ngModel)]="user.lastname"
-        required
-        pattern="[a-zA-Z]+"
-      />
-      <small
-        *ngIf="!lastname.valid && lastname.touched"
-        class="invalid-feedback d-block"
-        >Los apellidos no son validos</small
-      >
-    </div>
-    <div class="form-group">
-      <label for="email">Email: </label>
-      <input
-        type="email"
-        name="email"
-        class="form-control"
-        #email="ngModel"
-        [(ngModel)]="user.email"
-        required
-        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-      />
-      <small
-        *ngIf="!email.valid && email.touched"
-        class="invalid-feedback d-block"
-        >El email no es valido</small
-      >
-    </div>
+	<!-- Formulario de registro -->
+	<form
+		class="col-md-5 ml-0 p-0"
+		#userLoginForm="ngForm"
+		(ngSubmit)="onSubmit(userLoginForm)"
+	>
+		<div class="form-group">
+			<label for="name">Nombre: </label>
+			<input
+				type="text"
+				name="name"
+				class="form-control"
+				#name="ngModel"
+				[(ngModel)]="user.name"
+				required
+				pattern="[a-zA-Z]+"
+			/>
+			<small
+				*ngIf="!name.valid && name.touched"
+				class="invalid-feedback d-block"
+				>El nombre no es valido</small
+			>
+		</div>
+		<div class="form-group">
+			<label for="lastname">Apellidos: </label>
+			<input
+				type="text"
+				name="lastname"
+				class="form-control"
+				#lastname="ngModel"
+				[(ngModel)]="user.lastname"
+				required
+				pattern="[a-zA-Z]+"
+			/>
+			<small
+				*ngIf="!lastname.valid && lastname.touched"
+				class="invalid-feedback d-block"
+				>Los apellidos no son validos</small
+			>
+		</div>
+		<div class="form-group">
+			<label for="email">Email: </label>
+			<input
+				type="email"
+				name="email"
+				class="form-control"
+				#email="ngModel"
+				[(ngModel)]="user.email"
+				required
+				pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+			/>
+			<small
+				*ngIf="!email.valid && email.touched"
+				class="invalid-feedback d-block"
+				>El email no es valido</small
+			>
+		</div>
 
-    <div class="form-group">
-      <label for="description">Descripcion: </label>
-      <textarea
-        [froalaEditor]
-        name="description"
-        class="form-control"
-        [(froalaModel)]="user.description"
-      ></textarea>
-    </div>
+		<div class="form-group">
+			<label for="description">Descripcion: </label>
+			<textarea
+				[froalaEditor]
+				name="description"
+				class="form-control"
+				[(froalaModel)]="user.description"
+			></textarea>
+		</div>
 
-    <div class="form-group">
-      <label for="image">Avatar: </label>
-      <div *ngIf="identity && identity.image">
-        <small>Tu imagen de perfil actual:</small>
-        <img
-          class="img-edit rounded"
-          src="{{ url + 'user/avatar/' + identity.image }}"
-          alt="identity.image"
-        />
-      </div>
-      <angular-file-uploader
-        [config]="afuConfig"
-        [resetUpload]="true"
-        (ApiResponse)="avatarUpload($event)"
-      >
-      </angular-file-uploader>
-    </div>
+		<div class="form-group">
+			<label for="image">Avatar: </label>
+			<div *ngIf="identity && identity.image">
+				<small>Tu imagen de perfil actual:</small>
+				<img
+					class="img-edit rounded"
+					src="{{ url + 'user/avatar/' + identity.image }}"
+					alt="identity.image"
+				/>
+			</div>
+			<angular-file-uploader
+				[config]="afuConfig"
+				[resetUpload]="true"
+				(ApiResponse)="avatarUpload($event)"
+			>
+			</angular-file-uploader>
+		</div>
 
-    <input
-      type="submit"
-      value="Guardar Cambios"
-      class="btn btn-success d-block mx-auto"
-      [disabled]="userLoginForm.invalid"
-    />
-  </form>
+		<input
+			type="submit"
+			value="Guardar Cambios"
+			class="btn btn-success d-block mx-auto"
+			[disabled]="userLoginForm.invalid"
+		/>
+	</form>
 </div>

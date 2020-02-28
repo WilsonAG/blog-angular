@@ -21,38 +21,16 @@ export class PostNewComponent implements OnInit {
 	public status: string;
 	public message: string;
 	public isEdit: boolean;
+	public url: string;
 
 	public froalaOptions: Object = {
 		iconsTemplate: 'font_awesome_5',
 		charCounterCount: true,
-		toolbarButtons: [
-			'bold',
-			'italic',
-			'underline',
-			'paragraphFormat',
-			'alert',
-		],
-		toolbarButtonsXS: [
-			'bold',
-			'italic',
-			'underline',
-			'paragraphFormat',
-			'alert',
-		],
-		toolbarButtonsSM: [
-			'bold',
-			'italic',
-			'underline',
-			'paragraphFormat',
-			'alert',
-		],
-		toolbarButtonsMD: [
-			'bold',
-			'italic',
-			'underline',
-			'paragraphFormat',
-			'alert',
-		],
+		language: 'es',
+		toolbarButtons: ['bold', 'italic', 'underline', 'paragraphFormat'],
+		toolbarButtonsXS: ['bold', 'italic', 'underline', 'paragraphFormat'],
+		toolbarButtonsSM: ['bold', 'italic', 'underline', 'paragraphFormat'],
+		toolbarButtonsMD: ['bold', 'italic', 'underline', 'paragraphFormat'],
 	};
 	public afuConfig = {
 		multiple: false,
@@ -84,6 +62,7 @@ export class PostNewComponent implements OnInit {
 		this.identity = this._userService.getIdentity();
 		this.token = this._userService.getToken();
 		this.isEdit = false;
+		this.url = api.url;
 	}
 
 	ngOnInit(): void {
