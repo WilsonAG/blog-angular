@@ -1,0 +1,35 @@
+<div class="div" *ngIf="!posts">
+	Loading...
+</div>
+
+<div class="container-fliud" *ngIf="posts">
+	<div class="user-card">
+		<div class="img-mask-profile float-left mr-3 mt-2">
+			<img
+				class="img-nav "
+				src="{{ url + 'user/avatar/' + user.image }}"
+				alt="identity.image"
+			/>
+		</div>
+
+		<div class="data-mask float-left">
+			<h2 class="display-4 text-center" *ngIf="user.name">
+				Perfil de {{ user.name }}
+			</h2>
+			<p [innerHTML]="user.description"></p>
+		</div>
+
+		<div class="clearfix"></div>
+	</div>
+	<hr />
+	<div class="alert alert-warning" *ngIf="posts && posts.length == 0">
+		Aun no has creado nunguna entrada.
+	</div>
+	<!-- Listado de posts -->
+	<app-post-list
+		[posts]="posts"
+		[identity]="identity"
+		[url]="url"
+		(delete)="deletePost($event)"
+	></app-post-list>
+</div>

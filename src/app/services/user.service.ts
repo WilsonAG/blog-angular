@@ -77,4 +77,20 @@ export class UserService {
 		}
 		return this.token;
 	}
+
+	public getPosts(id: number): Observable<any> {
+		let headers = new HttpHeaders().set(
+			'Content-Type',
+			'application/x-www-form-urlencoded'
+		);
+		return this._http.get(this.url + 'post/user/' + id, { headers });
+	}
+
+	public getUser(id: number): Observable<any> {
+		let headers = new HttpHeaders().set(
+			'Content-Type',
+			'application/x-www-form-urlencoded'
+		);
+		return this._http.get(this.url + 'user/detail/' + id, { headers });
+	}
 }

@@ -13,3 +13,27 @@
 	margin-bottom: 1em;
 	margin-top: 1em;
 }
+.img-mask {
+	height: 48px;
+	width: 48px;
+	overflow: hidden;
+	border-radius: 50%;
+}
+
+.img-mask-profile {
+	height: 96px;
+	width: 96px;
+	overflow: hidden;
+	border-radius: 50%;
+}
+
+.img-nav {
+	height: 100%;
+}
+
+.img-edit {
+	width: 240px;
+	display: block;
+	margin-bottom: 1em;
+	margin-top: 1em;
+}
