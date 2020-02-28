@@ -4,6 +4,8 @@ import { CategoryService } from './services/category.service';
 import { api } from './services/apiconfig';
 import { Router } from '@angular/router';
 
+import * as bootstrap from 'bootstrap';
+
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',
@@ -16,6 +18,7 @@ export class AppComponent implements OnInit, DoCheck {
 	public token: string;
 	public url: string;
 	public categories: Array<any>;
+	public isLogged: boolean;
 
 	constructor(
 		private _userService: UserService,
@@ -33,6 +36,7 @@ export class AppComponent implements OnInit, DoCheck {
 
 	ngDoCheck() {
 		this.loadUser();
+		this.checkSession();
 	}
 
 	loadUser() {
@@ -40,16 +44,21 @@ export class AppComponent implements OnInit, DoCheck {
 		this.token = this._userService.getToken();
 	}
 
-	// no funciona
+	// check session expire
 	checkSession() {
-		setTimeout(() => {
-			if (this.identity) {
-				if (this.identity.exp > this.identity.iat) {
-					//cerrar sesion
-					this._router.navigate(['/logout/1']);
-				}
+		if (this.identity) {
+			let now = Math.floor(Date.now() / 1000);
+
+			if (now > this.identity.exp) {
+				//cerrar sesion
+				this.isLogged = false;
+				$('#sessionModal').modal('show');
+				this._router.navigate(['/logout/1']);
+			} else {
+				this.isLogged = true;
 			}
-		}, 5000);
+		} else {
+		}
 	}
 
 	loadCategories() {
